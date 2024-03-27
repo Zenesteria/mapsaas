@@ -33,7 +33,7 @@ export default function InfoNav({
     "state",
     "geo-political-zone",
     "senatorial",
-    "federal"
+    "federal",
   ];
 
   const state = statesdata.filter((state) => {
@@ -97,11 +97,25 @@ export default function InfoNav({
     );
   };
 
-
   const handleFederalChange = (e: any) => {
-    const fedData = statesdata.filter(state => {return state.name.toLowerCase() == mapState.active.state.toLowerCase()})[0].federalConstituencies.filter(fed => {return fed.name == e.target.value})[0].lgas.map((lga) => {
-        return statesdataset.filter(state => {return state.loc.toLowerCase() == mapState.active.state.toLowerCase()})[0].alldata?.filter(lgadata => {return lgadata.name.toLowerCase() == lga.toLowerCase() })[0]
-    });
+    const fedData = statesdata
+      .filter((state) => {
+        return state.name.toLowerCase() == mapState.active.state.toLowerCase();
+      })[0]
+      .federalConstituencies.filter((fed) => {
+        return fed.name == e.target.value;
+      })[0]
+      .lgas.map((lga) => {
+        return statesdataset
+          .filter((state) => {
+            return (
+              state.loc.toLowerCase() == mapState.active.state.toLowerCase()
+            );
+          })[0]
+          .alldata?.filter((lgadata) => {
+            return lgadata.name.toLowerCase() == lga.toLowerCase();
+          })[0];
+      });
     dispatch(toggleInfo());
     dispatch(resetData());
     dispatch(
@@ -149,6 +163,7 @@ export default function InfoNav({
     dispatch(
       setActive({
         zone: e.target.value,
+        bound: [9.67475603288972, 7.287066434953559],
       })
     );
   };
@@ -171,10 +186,7 @@ export default function InfoNav({
     mapState.active.state.length > 0 ? setIsDefault(false) : setIsDefault(true);
   }, [mapState]);
   return (
-    <Box
-      bg={bg}
-      className="bg-white mb-5 rounded-xl"
-    >
+    <Box bg={bg} className="bg-white mb-5 rounded-xl">
       <div className="px-5 py-7">
         {/* <h1
           className="font-semibold"
@@ -259,7 +271,10 @@ export default function InfoNav({
 
         {mapState.order == "federal" && state.length != 0 ? (
           <div className="relative w-full">
-            <Text bg={bg} className="absolute text-[0.7rem] top-0 font-light left-[10px] px-2">
+            <Text
+              bg={bg}
+              className="absolute text-[0.7rem] top-0 font-light left-[10px] px-2"
+            >
               {mapState.order} constituency
             </Text>
             <select
@@ -275,7 +290,7 @@ export default function InfoNav({
               {state[0].federalConstituencies.map((federal, index) => {
                 return (
                   <option key={`${index}senat`} value={`${federal.name}`}>
-                    {federal.name.split('_').join(' ')}
+                    {federal.name.split("_").join(" ")}
                   </option>
                 );
               })}
@@ -285,7 +300,10 @@ export default function InfoNav({
 
         {mapState.order == "geo-political-zone" ? (
           <div className="relative w-full mt-4">
-            <Text bg={bg} className="absolute text-[0.7rem] top-0 font-light left-[10px] px-2">
+            <Text
+              bg={bg}
+              className="absolute text-[0.7rem] top-0 font-light left-[10px] px-2"
+            >
               {mapState.order}s
             </Text>
             <Select

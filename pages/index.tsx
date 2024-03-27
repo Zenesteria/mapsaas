@@ -56,7 +56,9 @@ export default function Home({
       </Head>
       <div className="flex items-center justify-center md:justify-start w-full py-2 px-5">
         <Image alt="Dotgov" src={Logo} width={40} />
-        <h1 className="font-bold text-[1.3rem] mx-3 mr-auto tracking-wider">Dotgov</h1>
+        <h1 className="font-bold text-[1.3rem] mx-3 mr-auto tracking-wider">
+          Dotgov
+        </h1>
         <Link href={"/login"}>
           <Button bg={"black"} _hover={{}} color="white">
             Agent or Admin?
@@ -107,6 +109,6 @@ export const getStaticProps: GetStaticProps = async () => {
   const lgapollingdata = getLgaDataSetDev();
   return {
     props: { statespollingdata, lgapollingdata },
-    revalidate:10
+    revalidate: 10,
   };
 };
